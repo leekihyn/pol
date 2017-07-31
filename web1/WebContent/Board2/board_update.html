@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 입력</title>
+</head>
+<script>
+	function board_update() {
+		var userNumObj = document.getElementById("num");
+		var userNum = parseInt(userNumObj.value);
+		if (isNaN(userNum)) {
+			alert("숫자 입력하라고");
+			return false;
+		}
+		return true;
+		var titleObj = document.getElementById("title");
+		if (titleObj.value.trim() == "") {
+			alert("제목 입력안해")
+			return false;
+		}
+
+		var contentObj = document.getElementById("content");
+		if (contentObj.value.trim() == "") {
+			alert("내용 입력안해")
+			return false;
+		}
+	}
+</script>
+<body>
+	<form method="get" action="*.board" onsubmit="return board_update()">
+		num : <input type="text" name="num" id="num" /><br />
+		title : <input type="text" name="title" id="title" /><br />
+		content : <input type="text" name="content" id="content" /><br />
+		<input type="hidden" name="command" id="command" value="UPDATE"/>
+		 <input type="submit" value="수정" />
+	</form>
+</body>
+</html>

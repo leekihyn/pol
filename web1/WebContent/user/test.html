@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		function clickNum(num){
+			alert(num);
+		}
+		var tableStr = "<table border='1'>";
+		for (var j = 1; j <= 3; j++) {
+			tableStr += "<tr>";
+			for (var i = 1; i <= 3; i++) {
+				tableStr += "<td><input type='text' id='r" +j+ i + "'/></td>";
+			}
+			tableStr += "<td><input type='button' value='다죽어!' onclick='clickNum(" + j + ")'/></td>";
+			tableStr += "</tr>";
+		}
+		tableStr += "</table>";
+		document.write(tableStr);
+	</script>
+</body>
+</html>
