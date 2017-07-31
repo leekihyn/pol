@@ -3,14 +3,13 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="com.test.common.DBConn2"%>
 <%@ page import="com.test.dto.UserInfo"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page import="org.json.simple.JSONObject" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.google.gson.*" %>
+
+
 	<%
+	JSONObject j = new Gson().fromJson(request.getReader(), JSONObject.class);
 String id = request.getParameter("id");
 String pwd = request.getParameter("pwd");
 
@@ -64,8 +63,12 @@ if(id!=null && pwd!=null){
 	out.println(result);
 }else{
 	// 세션 초기화
+	result = "로그아웃 되셨습니다.";
 	session.invalidate();
 }
+HashMap hm = new HashMap();
+hm.put("login","ok")
+hm.put("login","ok")
 %>
 	<script>
 var result = "<%=result%>";
@@ -73,4 +76,3 @@ alert(result);
 location.href="/user/login.jsp";
 </script>
 </body>
-</html>

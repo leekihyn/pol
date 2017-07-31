@@ -12,8 +12,8 @@
 </head>
 
 <body>
-<div class="container">
-      <div class="starter-template">
+
+
 <%
 
 	int pBinum = Integer.parseInt(request.getParameter("binum"));
@@ -70,35 +70,56 @@
 	}
 
 %>
+
 <body>
 	<form method="get" action="<%=rootPath%>/Board/board_modify_ok.jsp">
-		<table border='2'>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="bititle" id="bititle" value="<%=bititle%>" /></td>
-			</tr>
-			<tr>
-				<td>내용 :</td>
-				<td><textarea name="bicontent" id="bicontent" value="<%=bicontent%>"></textarea></td>
-			</tr>
-			<tr>
-				<td>비번 :</td>
-				<td><input type="text" name="bipwd" id="bipwd" value="<%=bipwd%>" /></td>
-			</tr>
-			<tr>
-				<td>글쓴이 :</td>
-				<td><input type="text" name="creusr" id="creusr" value="<%=creusr%>" /></td>
-			</tr>
-			<tr>
+		<font color="red"> 
+			<jsp:include page="/common/top.jsp" flush="fasle"></jsp:include>
+	<div class="container">
+		<div class="starter-template">
+			<table border="2" class='table table-bordered table-hover'>
+
+				<tr>
+					<td>게시물번호:</td>
+					<td><%=binum%></td>
+					
+				</tr>
+				<tr>
+					<td>제목:</td>
+					<td><input type="text" name="bititle" id="bititle" value="<%=bititle%>" /></td>
+				</tr>
+				<tr>
+					<td>내용:</td>
+					<td><textarea name="bicontent" id="bicontent" value="<%=bicontent%>"></textarea></td>
+				</tr>
+				<tr>
+					<td>글쓴이:</td>
+					<td><input type="text" name="creusr" id="creusr" value="<%=creusr%>" /></td>
+				</tr>
+				<tr>
+					<td>생성일자:</td>
+					<td><%=credat%></td>
+				</tr>
+				<tr>
+				<td>비밀번호:</td>
+				<td><input type="password" name="bipwd" id="bipwd" /></td>
+				
+			</table>
+		</div>
+	</div>
 			<td><input type="hidden" value="<%=binum%>" name="binum"/></td>
 			<td><input type="submit" value="수정하기"/></td>
 			</tr>
 			
+		
+	</font>		
 </table>
 </form>
 </body>
 </div>
 </div>
+</form>
+
 
 </body>
 </html>
