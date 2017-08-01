@@ -105,5 +105,3 @@ function doSearch(){
 		</div>
 </div>
 </font><br>
-</body>
-</html>
