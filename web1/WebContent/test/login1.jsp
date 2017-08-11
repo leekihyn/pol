@@ -10,13 +10,13 @@
 <form action="login_ok.jsp" method="post">
 <input type="text" name="id"/>
 <input type="text" name="pwd"/>
-<input type="button" onclick="doLogin()"/>
+<input type="button" value="click"onclick="doLogin()"/>
 </form>
 <script>
 
 var AjaxUtil = function(p_url, params){
 	this.params = "";
-	
+	var oldSend  = this;
 	getHttpXmlObj = function(){
 		if(window.XMLHttpRequest){
 	  		return new XMLHttpRequest();
@@ -26,6 +26,7 @@ var AjaxUtil = function(p_url, params){
 		alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
 	}
 	this.xhr = getHttpXmlObj();
+	this.xhr.p = oldSend;
 	var method = "get";
 	var url = p_url;
 	var aSync = true;
@@ -33,21 +34,31 @@ var AjaxUtil = function(p_url, params){
    		if (this.readyState==4){
    			if(this.status==200){
 	   			var result = decodeURIComponent(this.responseText);
-	   			alert(result);
+	   			this.p.success(result);  
+   			}else{
+   				this.p.error(result);
    			}
    		}
+	}
+	this.success = function(abc){
+		alert(abc);
+	}
+	this.error = function(abc){
+		alert("에러입니다.");
 	}
 	this.changeCallBack = function(func){
 		this.xhr.onreadystatechange = func;
 	}
    	this.xhr.open(method, url+this.params, aSync);
    	this.send = function(){
-   		this.xhr.send.arguments = this;
-   	   	this.xhr.send();
+   		this.xhr.send();
    	}
 } 
 function doLogin(){ 
 	var au = new AjaxUtil("/test/login_ok1.jsp","id,pwd");
+	au.success = function(result){
+		alert("성공이다!!!!!");
+	}
 	au.send();
 }
 </script>

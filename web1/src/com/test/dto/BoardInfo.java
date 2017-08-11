@@ -1,42 +1,36 @@
 package com.test.dto;
 
 public class BoardInfo {
-	/*
-	 * `usernum` INT(5) NOT NULL AUTO_INCREMENT, `userid` VARCHAR(30) NOT NULL,
-	 * `username` VARCHAR(100) NOT NULL, `age` INT(1) NOT NULL, `address`
-	 * VARCHAR(200) NOT NULL, `hp1` CHAR(4) NULL DEFAULT NULL, `hp2` CHAR(4)
-	 * NULL DEFAULT NULL, `hp3` CHAR(4) NULL DEFAULT NULL, `userpwd`
-	 * VARCHAR(100) NOT NULL,
-	 */
-	private int biNum;
-	private String biTitle;
-	private String biContent;
-	private String biPwd;
-	private String creusr;
+	private int binum; 
+	private String bititle; 
+	private String bicontent; 
+	private String bipwd; 
+	private String creusr; 
 	private String credat;
-	public int getBiNum() {
-		return biNum;
+	
+	public int getBinum() {
+		return binum;
 	}
-	public void setBiNum(int biNum) {
-		this.biNum = biNum;
+	public void setBinum(int binum) {
+		this.binum = binum;
 	}
-	public String getBiTitle() {
-		return biTitle;
+	public String getBititle() {
+		return bititle;
 	}
-	public void setBiTitle(String biTitle) {
-		this.biTitle = biTitle;
+	public void setBititle(String bititle) {
+		this.bititle = bititle;
 	}
-	public String getBiContent() {
-		return biContent;
+	public String getBicontent() {
+		return bicontent;
 	}
-	public void setBiContent(String biContent) {
-		this.biContent = biContent;
+	public void setBicontent(String bicontent) {
+		this.bicontent = bicontent;
 	}
-	public String getBiPwd() {
-		return biPwd;
+	public String getBipwd() {
+		return bipwd;
 	}
-	public void setBiPwd(String biPwd) {
-		this.biPwd = biPwd;
+	public void setBipwd(String bipwd) {
+		this.bipwd = bipwd;
 	}
 	public String getCreusr() {
 		return creusr;
@@ -50,5 +44,4 @@ public class BoardInfo {
 	public void setCredat(String credat) {
 		this.credat = credat;
 	}
-
 }

@@ -1,31 +1,34 @@
 package com.test.dto;
 
-import java.util.List;
-
-public class Goods {
+public class Goods{
 
 	private int giNum;
 	private String giName;
-	private String giDesc; 
+	private String giDesc;
 	private int viNum;
 	private String viName;
-	private String command;   
-	private String page;     
-	
-	@Override
-	public String toString() { 
-		return "Goods [giNum=" + giNum + ", giName=" + giName + ", giDesc=" + giDesc + ", viNum=" + viNum + ", viName="
-				+ viName + ", command=" + command + ", page=" + page + "]";
+	private String command;
+	private Page page;
+
+	public Page getPage() {
+		return page;
 	}
 
-	public String getCommand(){
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
+	public String getCommand() {
 		return command;
 	}
-	
+
+	public void setCommand(String command) {
+		this.command = command;
+	}
+
 	public int getGiNum() {
-		return giNum; 
-	} 
-	
+		return giNum;
+	}
 	public void setGiNum(int giNum) {
 		this.giNum = giNum;
 	}
@@ -53,6 +56,9 @@ public class Goods {
 	public void setViName(String viName) {
 		this.viName = viName;
 	}
-	
-
+	@Override
+	public String toString() {
+		return "Goods [giNum=" + giNum + ", giName=" + giName + ", giDesc=" + giDesc + ", viNum=" + viNum + ", viName="
+				+ viName + ", command=" + command + ", page=" + page + "]";
+	}
 }

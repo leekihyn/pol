@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="com.test.common.DBConn2" %>
+<%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.UserInfo" %>
 <%@ page import="org.json.simple.JSONObject" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.google.gson.*" %>
 <%@ page import="java.io.*" %>
 
-<%
+<% 
 String id = null;
-String pwd = null; 
+String pwd = null;
 UserInfo ui = null;
 Gson g = new Gson();
 ui = g.fromJson(request.getReader(), UserInfo.class);
@@ -22,7 +22,7 @@ if(ui!=null){
 	Connection con = null;
 	PreparedStatement ps = null;
 	try{
-		con = DBConn2.getCon();
+		con = DBConn.getCon();
 		String sql = "select username, age, address, hp1, hp2, hp3, userpwd from user_info where userid=?";
 		ps = con.prepareStatement(sql);
 		ps.setString(1, ui.getUserId());
@@ -56,7 +56,7 @@ if(ui!=null){
 			ps.close();
 			ps = null;
 		}
-		DBConn2.closeCon();
+		DBConn.closeCon();
 	}
 	
 	if(result.equals("")){

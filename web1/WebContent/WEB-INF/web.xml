@@ -8,6 +8,9 @@
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	<session-config> 
+	    <session-timeout>0</session-timeout> 
+	</session-config>
 	<servlet>
 		<servlet-name>UserServlet</servlet-name>
 		<servlet-class>com.test.servlet.UserServlet</servlet-class>
@@ -31,20 +34,20 @@
 	<servlet-mapping>
 		<servlet-name>CalServlet</servlet-name>
 		<url-pattern>*.cal</url-pattern>
-	</servlet-mapping>  
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>GoodsServlet</servlet-name>
 		<servlet-class>com.test.servlet.GoodsServlet</servlet-class>
 	</servlet>
-	<servlet-mapping> 
+	<servlet-mapping>
 		<servlet-name>GoodsServlet</servlet-name>
-		<url-pattern>*.goods</url-pattern>  
+		<url-pattern>*.goods</url-pattern>
 	</servlet-mapping>
 	<filter>
 		<filter-name>Set Character Encoding</filter-name>
 		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
 		<init-param>
-			<param-name>encoding</param-name>  
+			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>

@@ -58,6 +58,8 @@ function doSignin(){
    			}
         }
     }
+	document.getElementById("bd_div").innerHTML = url+params;
+	return;
    	xhr.open(method, url+params, aSync);
    	if(method=="post"){
    		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

@@ -2,46 +2,35 @@
  * 
  */
 
-// var AjaxUtil = function(){
-// var str = "문자겠지?";
-// this.str2 = "나도 문자얌";
-//	
-// this.alertVar = function(){
-// alert(str);
-// alert(this.str2);
-// }
-// this.getStr = function(){
-// return str;
-// }
-//	
-// }
-//
-// var au = new AjaxUtil();
-// alert(au.getStr());
-// alert(au.str2);
-
-var AjaxUtil = function(url, arrParams, method, aSync) {
-	this.fAction = url;
-	this.fMethod = method ? method : "get";
-	var params = "?action=LoGIN&id=" + encodeURIComponent(userid);
-	this.fASync = aSync ? aSync : ture;
-	var sync = true; //true 면 비동기 false면은 동기
-	xmlHttpObj.onreadystatechange = function() {
-		if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
-			var result = decodeURIComponent(xmlHttpObj.responseText);
-			if (result == "success") {
-				location.href = "../user/welcome.jsp"
-			} else {
-				alert(result);
-
-			}
-		}
+var AjaxUtil = function(params){
+	this.params = params;
+	
+	getHttpXmlObj = function(){
+		if(window.XMLHttpRequest){
+	  		return new XMLHttpRequest();
+	 	}else if(window.ActiveXObject){
+	  		return new ActiveXObject("Microsoft.XMLHTTP");
+	 	}
+		alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
 	}
-	xmlHttpObj.open(method, url + params, sync);
-	if (method == "get") {
-		xmlHttpObj.setRequesHeader("Content-type",
-				"application/x-www-form-urlencoded");
+	this.xhr = getHttpXmlObj();
+	var method = "get";
+	var url = "test.user";
+	var aSync = true;
+	this.xhr.onreadystatechange=function(){
+   		if (this.readyState==4){
+   			if(this.status==200){
+	   			var result = decodeURIComponent(this.responseText);
+	   			alert(result);
+   			}
+   		}
 	}
-	xmlHttpObj.send(params);
-
+	this.changeCallBack = function(func){
+		this.xhr.onreadystatechange = func;
+	}
+   	this.xhr.open(method, url+params, aSync);
+   	this.send = function(){
+   		this.xhr.send.arguments = this;
+   	   	this.xhr.send();
+   	}
 }

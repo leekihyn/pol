@@ -1,19 +1,18 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.text.SimpleDateFormat"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
 </head>
-<body background="http://post.phinf.naver.net/MjAxNzA3MjNfODUg/MDAxNTAwNzUzMzEwMTIw.3I6y4lVEVeEeA47igyITVoXtnu2Tf2jOmYJSyJoxD-sg.C5eB4jBhY4dXLaZ33yHE3XhmuWP1gpoAUd491Zgc7Xsg.JPEG/IZ6iXKhbkrUoM6x-8PXHv0GUykeQ.jpg"/>
-<%! 
+<%!
 public void printStr(String str){
 	System.out.println("adsfsfad");
 }
-%> 
+%>
 <%
 String userId = (String) session.getAttribute("userid");
 String userName = "";
@@ -51,47 +50,16 @@ if(login){
 String version = "1.3.2";
 %>
 <script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/common.js?version=<%=version%>"></script>
 <script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"></script>
 <script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"></script>
 <link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css?version=<%=version%>"/>
 <link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css?version=<%=version%>"/>
 <link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>
 <link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
-<script> 
+<script>
 
-Number.prototype.equals = function(obj){
-	if(obj instanceof Number){
-		return this.toString()==obj.toString();
-	}
-	return this==obj; 
-} 
-
-function setPagination(sNum, eNum, nPage, nTotal, objId){
-	var pageStr = "";
-	if(nPage==1){
-		pageStr += "<li class='disabled'><a >◀◀</a></li>";
-		pageStr += "<li class='disabled' ><a >◀</a></li>";
-	}else{ 
-		pageStr += "<li><a>◀◀</a></li>";
-		pageStr += "<li><a>◀</a></li>";
-	}
-	for(var i=sNum, max=eNum;i<=max;i++){
-		if(i==nPage){
-			pageStr += "<li class='active'><a>" + i + "</a></li>";
-		}else{
-			pageStr += "<li><a>" + i + "</a></li>";
-		}
-	}
-	if(nPage==nTotal){
-		pageStr += "<li class='disabled'><a>▶</a></li>";
-		pageStr += "<li class='disabled'><a>▶▶</a></li>";
-	}else{ 
-		pageStr += "<li><a>▶</a></li>";
-		pageStr += "<li><a>▶▶</a></li>";
-	}
-
-	$("#" + objId).html(pageStr);
-}
 
 var rootPath = "<%=rootPath%>";
 $(document).ready(function(){
@@ -112,25 +80,6 @@ function doMovePage(pageId){
 
 function alertOp(){
 	alert($("#op").val());
-}
-function goPage(pParams, pUrl, pCallBackFunc){
-	var params = JSON.stringify(pParams);
-	$.ajax({ 
-    		type     : "POST"
-	    ,   url      : pUrl
-	    ,   dataType : "json" 
-	    ,   beforeSend: function(xhr) {
-	        xhr.setRequestHeader("Accept", "application/json");
-	        xhr.setRequestHeader("Content-Type", "application/json");
-	    }
-	    ,   data     : params
-	    ,   success : pCallBackFunc
-	    ,   error : function(xhr, status, e) {
-		    	alert("에러 : "+e);
-		},
-		complete  : function() {
-		}
-	});
 }
 </script>
 <body>

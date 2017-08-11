@@ -2,6 +2,7 @@ package com.test.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.dto.UserInfo;
-import com.test.services.UserService;
- 
+import com.test.service.UserService;
+
 public class UserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -117,6 +118,20 @@ public class UserServlet extends HttpServlet {
 		resq.setContentType("text/html; charset = UTF-8");
 		PrintWriter out = resq.getWriter();
 		out.print(writeStr);
+		
+		String str = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>";
+				str += "<html>";
+				str += "<head>";
+				out.print(str);
+//<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+//<title>Insert title here</title>
+//</head>
+//<body>
+//<%
+//out.println('아마추어같이 왜이래??');
+//%>
+//</body>
+//</html>'
 
 	}
 }
