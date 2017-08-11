@@ -6,12 +6,15 @@
 <%@ page import="org.json.simple.JSONObject" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.google.gson.*" %>
+<%@ page import="java.io.*" %>
+
 <%
 String id = null;
-String pwd = null;
+String pwd = null; 
 UserInfo ui = null;
-ui = new Gson().fromJson(request.getReader(), UserInfo.class);
- 
+Gson g = new Gson();
+ui = g.fromJson(request.getReader(), UserInfo.class);
+
 String result = "";
 String login = "false";
 if(ui!=null){
@@ -67,6 +70,8 @@ if(ui!=null){
 HashMap hm = new HashMap();
 hm.put("login",login);
 hm.put("msg",result);
-String json = new Gson().toJson(hm);
+
+String json = g.toJson(hm);
+System.out.println(json);
 out.write(json);
 %>

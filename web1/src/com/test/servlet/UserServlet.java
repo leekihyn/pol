@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.dto.UserInfo;
 import com.test.services.UserService;
-
+ 
 public class UserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

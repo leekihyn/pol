@@ -10,10 +10,6 @@
 					<td><%=userId%></td>
 				</tr>
 				<tr>
-					<td>비밀번호:</td>
-					<td><%=userPwd%></td>
-				</tr>
-				<tr>
 					<td>유저이름:</td>
 					<td><%=userName%></td>
 				</tr>

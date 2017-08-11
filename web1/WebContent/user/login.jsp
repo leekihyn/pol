@@ -8,7 +8,7 @@
 <body>
 <font face="궁서체"> <font color="red">
 	<div class="container">
-	<center><img src ="http://cafefiles.naver.net/20120905_61/nikeorb_1346842544358Q8NTE_JPEG/fizz_splash_3.jpg"/>
+	<center><img src ="http://cafefiles.naver.net/20120905_61/nikeorb_1346842544358Q8NTE_JPEG/fizz_splash_3.jpg"/></center>
 		<form class="form-signin" action="<%=rootPath%>/user/login_ok.jsp">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<label for="inputEmail" class="sr-only">Email address</label> 
@@ -23,7 +23,8 @@
 			<button id="btn2"class="btn btn-lg btn-primary btn-block" type="button">접속하기</button>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">접속하기2</button>
 		</form>
-
+	</div>
+	</font>
 	</div>
 	<!-- /container -->
 	<script>
