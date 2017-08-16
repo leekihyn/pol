@@ -14,8 +14,8 @@
 				<th data-field="viname" class="text-center">생산자이름</th>
 			</tr>
 		</thead>
-		<tbody id="result_tbody">
-		</tbody>
+		<tbody id="result_tbody"> 
+		</tbody> 
 	</table>
 </div>
 <div class="jb-center" style="text-align: center">
@@ -50,7 +50,7 @@ function callback(results){
 	if(endBlock>totalPageCnt){
 		endBlock = totalPageCnt;
 	}
-	makePaginationstartBlock, endBlock, nowPage, totalPageCnt, "page");
+	makePaginationstartBlock, endBlock, nowPage, totalPageCnt, "page");  
 	
 	for(var i=0, max=vendorList.length;i<max;i++){
 		$("#s_vendor").append("<option value='" + vendorList[i].vinum + "'>"+vendorList[i].viname +"</option>")

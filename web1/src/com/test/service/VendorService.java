@@ -10,27 +10,77 @@ import java.util.List;
 import com.test.common.DBConn;
 import com.test.dto.Goods;
 import com.test.dto.Page;
+import com.test.dto.Vendor;
 
-public class VendorService {
-
-	public List<Goods> selectGoodsList(Goods pGoods){
+public class VendorService { 
+	public List<Vendor> selectVendorsList(){
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			String sql = "select * from vendor_info";
+			
+			con = DBConn.getCon();
+			ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			List<Vendor> vendorList = new ArrayList<Vendor>();
+			while(rs.next()){
+				Vendor vendor = new Vendor();
+				vendor.setViNum(rs.getInt("vinum"));
+				vendor.setViName(rs.getString("viname")); 
+				vendor.setViDesc(rs.getString("videsc"));  
+				vendor.setViAddress(rs.getString("viaddress"));
+				vendor.setViPhone(rs.getString("viphone")); 
+				vendorList.add(vendor);
+			} 
+			return vendorList;
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DBConn.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	public List<Goods> selectVendorList(Goods pVendors){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
 			String sql = "select gi.ginum, gi.giname, gi.gidesc, vi.vinum, vi.viname "
 					+ " from goods_info as gi, vendor_info as vi "
-					+ " where gi.vinum=vi.vinum"
-					+ " order by gi.ginum"
-					+ " limit ?,?";
-			Page page = pGoods.getPage();
+					+ " where gi.vinum=vi.vinum";
+			
+			int idx=0;
+			if(pVendors.getViNum()!=0){
+				sql += " and gi.vinum=?";
+				idx++;
+			}
+			if(pVendors.getViName()!=null){
+				sql += " and gi.giname like ?";
+				idx++; 
+			}
+			sql += " order by gi.ginum";
+			sql += " limit ?,?";
+			Page page = pVendors.getPage();
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, page.getStartRow());
-			System.out.println(page.getStartRow());
-			ps.setInt(2, page.getRowCnt());
-			System.out.println(page.getBlockCnt());
+			if(pVendors.getViNum()!=0 && pVendors.getGiName()==null){
+				ps.setInt(1, pVendors.getViNum());
+			}else if(pVendors.getGiName()!=null && pVendors.getViNum()==0){
+				ps.setString(1, "%" + pVendors.getGiName() + "%");
+			}else if(pVendors.getGiName()!=null && pVendors.getViNum()!=0 ){
+				ps.setInt(1, pVendors.getViNum());
+				ps.setString(2, "%" + pVendors.getGiName() + "%");
+			}
+			ps.setInt(++idx, page.getStartRow()); 
+			ps.setInt(++idx, page.getRowCnt());
 			ResultSet rs = ps.executeQuery();
-			List<Goods> goodsList = new ArrayList<Goods>();
+			List<Goods> goodsList = new ArrayList<Goods>(); 
 			while(rs.next()){
 				Goods goods = new Goods();
 				goods.setGiNum(rs.getInt("ginum"));
@@ -55,25 +105,143 @@ public class VendorService {
 		}
 		return null;
 	}
-
-	public int getTotalCount(Goods pGoods){
+	
+	public int deleteGoods(Goods pGoods){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "select count(1) "
+			String sql = "delete from goods_info where  ginum=?";
+			con = DBConn.getCon(); 
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, pGoods.getGiNum());
+			int result = ps.executeUpdate();
+			con.commit();
+			return result;
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DBConn.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+	public int insertGoods(Goods pGoods){
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			String sql = "insert into goods_info(giname, gidesc, vinum, gicredat, gicretim)";
+			sql += " values(?,?,?,DATE_FORMAT(NOW(),'%Y%m%d'), DATE_FORMAT(NOW(),'%H%i%s'))";
+			con = DBConn.getCon(); 
+			ps = con.prepareStatement(sql);
+			ps.setString(1, pGoods.getGiName());
+			ps.setString(2, pGoods.getGiDesc());
+			ps.setInt(3, pGoods.getViNum());
+			int result = ps.executeUpdate();
+			con.commit();
+			return result;
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DBConn.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+	
+	public int updateGoods(Goods pGoods){
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			String sql = "update goods_info";
+			sql += " set giname=?,";
+			sql += " gidesc=?,";
+			sql += " vinum=?";
+			sql += " where ginum=?";
+			con = DBConn.getCon(); 
+			ps = con.prepareStatement(sql);
+			ps.setString(1, pGoods.getGiName());
+			ps.setString(2, pGoods.getGiDesc());
+			ps.setInt(3, pGoods.getViNum());
+			ps.setInt(4, pGoods.getGiNum());
+			int result = ps.executeUpdate();
+			con.commit();
+			return result;
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DBConn.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	public Goods selectGoods(Goods pGoods){
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			String sql = "select gi.ginum, gi.giname, gi.gidesc, vi.vinum, vi.viname "
 					+ " from goods_info as gi, vendor_info as vi "
-					+ " where gi.vinum=vi.vinum";
+					+ " where gi.vinum=vi.vinum and gi.ginum=?";
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, pGoods.getGiNum());
 			ResultSet rs = ps.executeQuery();
-			List<Goods> goodsList = new ArrayList<Goods>();
 			while(rs.next()){
-				return rs.getInt(1);
+				Goods goods = new Goods();
+				goods.setGiNum(rs.getInt("ginum"));
+				goods.setGiName(rs.getString("giname"));
+				goods.setGiDesc(rs.getString("gidesc"));
+				goods.setViNum(rs.getInt("vinum"));
+				goods.setViName(rs.getString("viname"));
+				return goods;
 			}
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DBConn.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	public int getTotalCount(Vendor pGoods){
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = DBConn.getCon();
+			String sql = "select count(1) from vendor_info";
+			ps = con.prepareStatement(sql);		
+ 			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				return rs.getInt(1);
+			} 
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace(); 
 		}finally{
 			try {
 				ps.close();

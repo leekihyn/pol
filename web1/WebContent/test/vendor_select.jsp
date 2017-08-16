@@ -74,7 +74,7 @@
 			rhm.put("gidesc", rs.getString("gidesc"));
 			rhm.put("vinum", rs.getString("vinum"));
 			rhm.put("viname", rs.getString("viname"));
-			goodsList.add(rhm);
+			goodsList.add(rhm); 
 		}
 	}catch(Exception e){
 		System.out.println(e);

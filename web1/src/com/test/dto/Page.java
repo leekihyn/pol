@@ -78,7 +78,7 @@ public class Page {
 	}
 
 	public void setTotalPageCnt(int totalPageCnt) {
-		this.totalPageCnt = totalPageCnt;
+		this.totalPageCnt = totalPageCnt; 
 	}
 
 	public int getNowPage() {

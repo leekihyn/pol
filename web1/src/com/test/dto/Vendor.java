@@ -9,6 +9,21 @@ public class Vendor {
 	private String viPhone;
 	private String viCredat;
 	private String viCretim;
+	private String command;
+	private Page page;
+	
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	public String getCommand() {
+		return command;
+	}
+	public void setCommand(String command) {
+		this.command = command;
+	}
 	public int getViNum() {
 		return viNum;
 	}
