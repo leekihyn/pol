@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+function click1(){
+	alert(1);
+}
+function setCilck1(func){
+	alert(func);
+	click1 = func;
+	
+}
+function click2(){
+	setCilck1(function(){	alert(2);});
+}
+</script>
+
+<input type="button" value="1" onclick="click1()" />
+<input type="button" value="2" onclick="click2()" />
+</body>
+</html>

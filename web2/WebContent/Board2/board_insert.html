@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 입력</title>
+</head>
+<script>
+	function checkValue() {
+		var titleObj = document.getElementById("bititle");
+		if (titleObj.value.trim() == "") {
+			alert("제목 입력안해")
+			return false;
+		}
+
+		var contentObj = document.getElementById("bicontent");
+		if (contentObj.value.trim() == "") {
+			alert("내용 입력안해")
+			return false;
+		}
+		var userNumObj = document.getElementById("bipwd");
+		var userNum = parseInt(userNumObj.value);
+		if (isNaN(userNum)) {
+			alert("숫자 입력하라고");
+			return false;
+		}
+		var userNumObj = document.getElementById("creusr");
+		var userNum = parseInt(userNumObj.value);
+		if (isNaN(userNum)) {
+			alert("숫자 입력하라고");
+			return false;
+		}
+	
+
+		return true;
+	}
+</script>
+<body>
+	<form method="get" action="*.board" onsubmit="return checkValue()">
+		제목 : <input type="text" name="bititle" id="title" /><br /> 
+		내용 :<textarea name="content" id="bicontent"></textarea>
+		비번 : <input type="text" name="bipwd" id="bipwd" /><br /> 
+		글쓴이 : <input type="text" name="creusr" id="creusr" /><br /> 
+
+		<input type="submit" value="글쓰기" /><br />
+		<input type="hidden" name="command" id="command" value="SELECT"/>
+	</form>
+</body>
+</html>
