@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
-
-
 <div class="container">
 	<div class="container" style="text-align: center; padding-top: 20px;padding-bottom: 20px;">
-		<select id="s_vendor" class="selectpicker"> 
-		</select> 
 		<label>회사이름 : </label> <input type="text" id="viName" /> 
 		<input type="button" id="searchGoods" value="검색" />
 	</div> 
 	<table id="table" data-height="460"
 		class="table table-bordered table-hover">
 		<thead>
-			<tr>
+			<tr> 
 				<th data-field="viNum" class="text-center">회사번호</th>
 				<th data-field="viName" class="text-center">회사이름</th>
 				<th data-field="viDesc" class="text-center">회사설명</th>
