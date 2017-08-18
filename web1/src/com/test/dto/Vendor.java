@@ -4,7 +4,7 @@ public class Vendor {
 
 	private int viNum;
 	private String viName;
-	private String viDesc;
+	private String viDesc; 
 	private String viAddress;
 	private String viPhone;
 	private String viCredat;

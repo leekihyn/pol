@@ -11,16 +11,22 @@ import com.test.common.DBConn;
 import com.test.dto.Goods;
 import com.test.dto.Page;
 import com.test.dto.Vendor;
-
+ 
 public class VendorService { 
-	public List<Vendor> selectVendorsList(){
-		Connection con = null;
-		PreparedStatement ps = null;
+	  
+	public List<Vendor> selectVendorsList(Vendor vs){ 
+		Connection con = null;  
+		PreparedStatement ps = null;   
 		try {
-			String sql = "select * from vendor_info";
-			
+			String sql = "select * from vendor_info where 1=1";
+			if(vs.getViName()!=null){
+				sql += " and viname like ?";
+			}
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
+			if(vs.getViName()!=null){
+				ps.setString(1,  "%" + vs.getViName() + "%");
+			}
 			ResultSet rs = ps.executeQuery();
 			List<Vendor> vendorList = new ArrayList<Vendor>();
 			while(rs.next()){
@@ -44,9 +50,43 @@ public class VendorService {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
+		} 
 		return null;
 	}
+//
+	public Vendor selectVendorsView(Vendor vs){ 
+		Connection con = null;  
+		PreparedStatement ps = null;   
+		try {
+			con = DBConn.getCon();
+			String sql = "select * from vendor_info";
+			sql += " where vinum = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, vs.getViNum());
+			ResultSet rs = ps.executeQuery();
+			Vendor vendor = new Vendor();
+			while(rs.next()){
+				vendor.setViNum(rs.getInt("vinum"));
+				vendor.setViName(rs.getString("viname")); 
+				vendor.setViDesc(rs.getString("videsc"));  
+				vendor.setViAddress(rs.getString("viaddress"));
+				vendor.setViPhone(rs.getString("viphone")); 
+			} 
+			return vendor;
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DBConn.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return null;
+	}	
 	public List<Goods> selectVendorList(Goods pVendors){
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -101,19 +141,19 @@ public class VendorService {
 				DBConn.closeCon();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}
+			} 
 		}
 		return null;
 	}
 	
-	public int deleteGoods(Goods pGoods){
+	public int deleteVendors(Vendor pVendors){   
 		Connection con = null;
-		PreparedStatement ps = null;
+		PreparedStatement ps = null; 
 		try {
-			String sql = "delete from goods_info where  ginum=?";
+			String sql = "delete from vendor_info where  vinum=?"; 
 			con = DBConn.getCon(); 
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, pGoods.getGiNum());
+			ps.setInt(1, pVendors.getViNum()); 
 			int result = ps.executeUpdate();
 			con.commit();
 			return result;
@@ -130,19 +170,20 @@ public class VendorService {
 			}
 		}
 		return 0;
-	}
-	public int insertGoods(Goods pGoods){
-		Connection con = null;
+	} 
+	public int insertVendor(Vendor pVendor){ 
+		Connection con = null; 
 		PreparedStatement ps = null;
 		try {
-			String sql = "insert into goods_info(giname, gidesc, vinum, gicredat, gicretim)";
-			sql += " values(?,?,?,DATE_FORMAT(NOW(),'%Y%m%d'), DATE_FORMAT(NOW(),'%H%i%s'))";
-			con = DBConn.getCon(); 
-			ps = con.prepareStatement(sql);
-			ps.setString(1, pGoods.getGiName());
-			ps.setString(2, pGoods.getGiDesc());
-			ps.setInt(3, pGoods.getViNum());
-			int result = ps.executeUpdate();
+			String sql = "insert into vendor_info(viname, videsc, viaddress, viphone, vicredat, vicretim)";
+			sql += " values(?,?,?,?,DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s'))";   
+			con = DBConn.getCon();   
+			ps = con.prepareStatement(sql); 
+			ps.setString(1, pVendor.getViName());
+			ps.setString(2, pVendor.getViDesc()); 
+			ps.setString(3, pVendor.getViAddress());  
+			ps.setString(4, pVendor.getViPhone());      
+			int result = ps.executeUpdate(); 
 			con.commit();
 			return result;
 		}catch (ClassNotFoundException e) {
@@ -160,21 +201,21 @@ public class VendorService {
 		return 0;
 	}
 	
-	public int updateGoods(Goods pGoods){
+	public int updateVendor(Vendor pvendor){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "update goods_info";
+			String sql = "update goods_info"; 
 			sql += " set giname=?,";
 			sql += " gidesc=?,";
 			sql += " vinum=?";
 			sql += " where ginum=?";
 			con = DBConn.getCon(); 
 			ps = con.prepareStatement(sql);
-			ps.setString(1, pGoods.getGiName());
-			ps.setString(2, pGoods.getGiDesc());
-			ps.setInt(3, pGoods.getViNum());
-			ps.setInt(4, pGoods.getGiNum());
+			ps.setString(1, pvendor.getViName());
+			ps.setString(2, pvendor.getViDesc());
+			ps.setString(3, pvendor.getViAddress()); 
+			ps.setString(4, pvendor.getViPhone());  
 			int result = ps.executeUpdate();
 			con.commit();
 			return result;

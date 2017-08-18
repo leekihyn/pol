@@ -8,24 +8,28 @@
 	<div class="container-view"> 
 		<table id="table"  data-height="460"	class="table table-bordered table-hover">
 		<thead>
-			<tr>   
+			<tr>    
 				<th colspan="2" class="text-center"><h5 class="form-signin-heading">상품상세 페이지</h5></th>
 			</tr>
 			<tr>
 				<td class="col-md-2">상품번호</td>
-				<td class="col-md-4"><%=request.getParameter("giNum") %></td>
+				<td class="col-md-4"><%=request.getParameter("viNum") %></td>
 			<tr>
-				<td>상품이름</td>  
-				<td><input type="text" name="num" id="giName" value ="<%=request.getParameter("giName")%>"><br /></td>
+				<td>회사이름</td>  
+				<td><input type="text" name="num" id="viName" value ="<%=request.getParameter("viName")%>"><br /></td>
 			</tr> 
 			<tr>
-				<td>상품설명</td>
-				<td><input type="text" name="num" id="giDesc" value = <%=request.getParameter("giDesc") %>><br /></td>
+				<td>회사설명</td>
+				<td><input type="text" name="num" id="viDesc" value = <%=request.getParameter("viDesc") %>><br /></td>
 			</tr>
 			<tr> 
-				<td>생산자번호</td>
-				<td><select id="s_vendor"></select></td>	 		
+				<td>회사주소</td>
+				<td><input type="text" name="num" id="viAddress" value = <%=request.getParameter("viAddress") %>><br /></td>	 		
 				</tr>
+			<tr> 
+				<td>대표번호</td>
+				<td><input type="text" name="num" id="viPhone" value = <%=request.getParameter("viPhone") %>><br /></td>	 		
+				</tr> 
 			
 			<tr>
 				<td colspan="2">
@@ -41,23 +45,23 @@
 <script>
 $("#btnUpdate").click(function(){  
 	var params = {};
-	params["command"] = "update";
-	params["giDesc"] = $("#giDesc").val();
-	params["giName"] = $("#giName").val();
-	params["viNum"] = $("#s_vendor").val();
-	params["giNum"] = "<%=request.getParameter("giNum")%>";
-	movePageWithAjax(params, "/list.goods", callbackInsert);
+	params["command"] = "update"; 
+	params["viName"] = $("#viName").val();
+	params["viDesc"] = $("#viDesc").val();
+	params["viAddress"] = $("#viAddress").val(); 
+	params["viPhone"] = $("#viPhone").val();  
+	movePageWithAjax(params, "/list.vendor", callbackInsert); 
 })
 
 $("#btncancel").click(function(){
-	location.href = "goods_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>;
+	location.href = "vendor_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>; 
 	
 })
 
 $(document).ready(function(){
 	var params = {};
-	params["command"] = "vendorlist";
-	movePageWithAjax(params, "/list.goods", callback);
+	params["command"] = "vendorlist"; 
+	movePageWithAjax(params, "/list.vendor", callback);
 })
 
 function callbackInsert(result){
@@ -80,8 +84,8 @@ function callback(result){
 	var page = {}
 	page["nowPage"] = "<%=request.getParameter("nowPage")%>";
 	params["page"] = page;
-	movePageWithAjax(params, "/list.goods", callback2);
-}
+	movePageWithAjax(params, "/list.vendor", callback2);
+} 
 function callback2(result){
 	$("#giDesc").val(result.goods.giDesc);
 	$("#giName").val(result.goods.giName);

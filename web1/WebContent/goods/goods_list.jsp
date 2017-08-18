@@ -21,21 +21,25 @@
 				<th data-field="viName" class="text-center">생산자이름</th>
 			</tr>
 		</thead>
-		<tbody id="result_tbody">
+		<tbody id="result_tbody"> 
 		</tbody>
 	</table>
+	<button id="btnInsert" class="btn btn-primary"  type="button">상품등록</button>
 </div>
 <div class="jb-center" style="text-align: center">
 	<ul class="pagination" id="page">
 	</ul>
 </div>
-<script>
+<script> 
 var pageInfo = {};
 var nowPage = "<%=request.getParameter("nowPage")%>";
 
 if(nowPage=="null"){
 	nowPage = "1";
 }
+$("#btnInsert").click(function(){
+	location.href="/goods/goods_insert.jsp";
+}) 
 $("#searchGoods").click(function() {
 	var giName = $("#giName").val().trim();
 	var viNum = $("#s_vendor").val().trim();

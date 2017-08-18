@@ -18,88 +18,90 @@
 			</tr>
 		</thead>
 		<tbody id="result_tbody">
-		</tbody>
+		</tbody> 
+		<button id="btnInsert" class="btn btn-primary"  type="button">회사등록</button>
 	</table>
-</div>
+</div> 
 <div class="jb-center" style="text-align: center">
 	<ul class="pagination" id="page">
 	</ul>  
-</div>
-<script>
+</div> 
+<script> 
 var pageInfo = {};
 var nowPage = "<%=request.getParameter("nowPage")%>";
 
 if(nowPage=="null"){
 	nowPage = "1";
 }
+$("#btnInsert").click(function(){
+	location.href="/vendor/vendor_insert.jsp";
+}) 
 $("#searchGoods").click(function() {
-	var viName = $("#viName").val().trim();
+	var giName = $("#giName").val().trim();
 	var viNum = $("#s_vendor").val().trim();
-	if(viName=="" && viNum==""){
+	if(giName=="" && viNum==""){
 		alert("회사 선택이나 제품명을 입력해주세요.");
 		return;
 	}
 	var params = {};
-	if(viName!=""){
-		params["viName"] = viName;
+	if(giName!=""){
+		params["giName"] = giName;
 	}
-	if(viNum!=""){ 
+	if(viNum!=""){
 		params["viNum"] = viNum;
 	}
 	params["command"] = "list";
 	var page = {};
 	page["nowPage"] = nowPage;
 	params["page"] = page;
-	movePageWithAjax(params, "/list.vendor", callback);
+	movePageWithAjax(params, "/list.goods", callback);
 });
 
 function callback(results) {
 	var pageInfo = results.page;
 	var vendorList = results.vendorList;
-	alert(vendorList[1].viNum);
-	alert(vendorList[1].viName);
-	alert(vendorList[1].viDesc);
-	alert(vendorList[1].viaddress);
-	alert(vendorList[1].viphone);
-	var params = {}; 
-	var resultStr = ""; 
-	for(var i=0, max=vendorList.length;i<max;i++){ 
-		var goods = vendorList[i];  
-		resultStr += "<tr data-view='" + goods.viNum + "'>";
-		resultStr +="<td class='text-center'>" + goods.viNum + "</td>";
-		resultStr +="<td class='text-center'>" + goods.viName + "</td>";
-		resultStr +="<td class='text-center'>" + goods.viDesc + "</td>";
-		resultStr +="<td class='text-center'>" + goods.viaddress + "</td>";
-		resultStr +="<td class='text-center'>" + goods.viphone + "</td>"; 
+	//var params = {};
+	//makePagination(pageInfo,"page");
+	//setEvent(pageInfo,params , "/list.vendors");
+	$('#table').bootstrapTable('destroy');
+	var resultStr = "";
+	for(var i=0, max=vendorList.length;i<max;i++){
+		var vendor = vendorList[i];
+		resultStr += "<tr data-view='" + vendor.viNum + "'>";
+		resultStr +="<td class='text-center'>" + vendor.viNum + "</td>";
+		resultStr +="<td class='text-center'>" + vendor.viName + "</td>";
+		resultStr +="<td class='text-center'>" + vendor.viDesc + "</td>";
+		resultStr +="<td class='text-center'>" + vendor.viAddress + "</td>";
+		resultStr +="<td class='text-center'>" + vendor.viPhone + "</td>";
 		resultStr +="</tr>";
-	} 
+	}
 	$('#result_tbody').html(resultStr);
 	$("tbody[id='result_tbody']>tr[data-view]").click(function(){
 		var params = {};
 		params["viNum"] = this.getAttribute("data-view");
 		params["command"] = "view";
 		var page = {};
-		page["nowPage"] = pageInfo.nowPage;
+		page["nowPage"] = nowPage;
 		params["page"] = page;
-		movePageWithAjax(params, "/list.vendor", callBackView); 
+		movePageWithAjax(params, "/list.vendor", callBackView);
 	})
 }
-/* function callBackView(result){
-	var url = result.url + "?nowPage=" + result.page.nowPage + "&viNum=" + result.vendor.viNum;
-	url += "&viName=" + result.goods.viName; 
-	url += "&viDesc=" + result.goods.viDesc;
-	url += "&viAddress=" + result.goods.viAddress;
-	url += "&viPhone=" + result.goods.viPhone;
-	location.href=url;  
-} */
+function callBackView(result){
+	var url = result.url + "?nowPage=" + result.page.nowPage + "&viNum=" + result.vendorList.viNum;
+	url += "&viName=" + result.vendorList.viName;
+	url += "&viDesc=" + result.vendorList.viDesc;
+	url += "&viAddress=" + result.vendorList.viAddress;
+	url += "&viPhone=" + result.vendorList.viPhone; 
+	location.href=url;
+}
 
 $(document).ready(function() {
 	var page = {};
-	page["nowPage"] = "1";
-	var params = {}; 
+	page["nowPage"] = nowPage;
+	var params = {};
 	params["page"] = page;
 	params["command"] = "list";
-	movePageWithAjax(params, "/list.vendor", callback); 
+	movePageWithAjax(params, "/list.vendor", callback);
 });
 </script>
 </body>

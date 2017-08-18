@@ -11,23 +11,23 @@
 				<th colspan="3" class="text-center"><h5 class="form-signin-heading">상품상세 페이지</h5></th>
 			</tr>
 			<tr>
-				<td class="col-md-2">상품번호</td>
-				<td class="col-md-4" colspan="2"><%=request.getParameter("giNum") %></td>
+				<td class="col-md-2">회사번호</td>
+				<td class="col-md-4" colspan="2"><%=request.getParameter("viNum") %></td>
 			<tr>
-				<td>상품이름</td>
-				<td colspan="2"><%=request.getParameter("giName") %></td>
-			</tr>
-			<tr>
-				<td>상품설명</td>
-				<td colspan="2"><%=request.getParameter("giDesc") %></td>
-			</tr>
-			<tr>
-				<td>생산자번호</td>
-				<td colspan="2"><%=request.getParameter("viNum") %></td>
-			</tr>
-			<tr>
-				<td>생산자이름</td>
+				<td>회사이름</td>
 				<td colspan="2"><%=request.getParameter("viName") %></td>
+			</tr>
+			<tr>
+				<td>회사설명</td>
+				<td colspan="2"><%=request.getParameter("viDesc") %></td>
+			</tr>
+			<tr>
+				<td>회사주소</td>
+				<td colspan="2"><%=request.getParameter("viAddress") %></td>
+			</tr>
+			<tr>
+				<td>대표번호</td>
+				<td colspan="2"><%=request.getParameter("viPhone") %></td>
 			</tr>
 			<tr>
 				<td>
@@ -44,31 +44,40 @@
 	</div>
 	<!-- /container -->
 <script>
+var nowPage = "<%=request.getParameter("nowPage")%>";
+
+if(nowPage=="null"){
+	nowPage = "1";
+}
 $("#btnDelete").click(function(){
 	var isDelete = confirm("해당 상품을 삭제 하시겠습니까?");
 	if(isDelete){
 		var params = {};
-		params["giNum"] = "<%=request.getParameter("giNum")%>";
+		params["viNum"] = "<%=request.getParameter("viNum")%>";
 		params["command"] = "delete";
 		var page = {};
 		page["nowPage"] = "<%=request.getParameter("nowPage")%>";
 		params["page"] = page;
-		movePageWithAjax(params, "/list.goods", callBackView);
+		movePageWithAjax(params, "/list.vendor", callBackView);  
 	} 
 });
 
 function callBackView(result){
 	alert(result.msg);
+	alert(result.url);
+
+	
 	if(result.url!=""){	
 		location.href = result.url + "?nowPage=" + result.page.nowPage;
 	} 
 }
-$("#btnUpdate").click(function(){
-	location.href="/goods/goods_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&giNum=" + <%=request.getParameter("giNum")%>;
+$("#btnUpdate").click(function(){ 
+	location.href="/vendor/vendor_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&viNum=" + <%=request.getParameter("viNum")%>
+	+ "&viName=" + <%=request.getParameter("viName")%> + "&viDesc=" + <%=request.getParameter("viDesc")%>;  
 	 
 });
 $("#btnGoList").click(function(){
-	location.href="/goods/goods_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>
+	location.href="/vendor/vendor_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>
 });
 </script>
 </body>
