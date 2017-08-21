@@ -205,17 +205,19 @@ public class VendorService {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "update goods_info"; 
-			sql += " set giname=?,";
-			sql += " gidesc=?,";
-			sql += " vinum=?";
-			sql += " where ginum=?";
+			String sql = "update vendor_info";  
+			sql += " set viname=?,";
+			sql += " videsc=?,";
+			sql += "  viaddress=?,";
+			sql += "  viphone=?";
+			sql += " where vinum=?";
 			con = DBConn.getCon(); 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, pvendor.getViName());
 			ps.setString(2, pvendor.getViDesc());
 			ps.setString(3, pvendor.getViAddress()); 
 			ps.setString(4, pvendor.getViPhone());  
+			ps.setInt(5, pvendor.getViNum());  
 			int result = ps.executeUpdate();
 			con.commit();
 			return result;

@@ -34,6 +34,7 @@ public class VendorServlet extends HttpServlet{
 	    Vendor vendors = g.fromJson(request.getReader(), Vendor.class);
 	    String command = vendors.getCommand();
     	Page page = vendors.getPage();
+    	String viNum = request.getParameter("viNum");
 	    if(command.equals("list")){
 	    	int totalCnt = vs.getTotalCount(vendors);
 	    	page.setTotalCnt(totalCnt);
@@ -85,6 +86,7 @@ public class VendorServlet extends HttpServlet{
 		 if(result!=1){ 
 			 resultMap.put("msg", "수정 실패");
 			 resultMap.put("url", "");
+			 System.out.println(viNum);
 		 }
 		 String jsonStr = g.toJson(resultMap);
 		 doProcess(response, jsonStr); 

@@ -16,19 +16,19 @@
 				<td class="col-md-4"><%=request.getParameter("viNum") %></td>
 			<tr>
 				<td>회사이름</td>  
-				<td><input type="text" name="num" id="viName" value ="<%=request.getParameter("viName")%>"><br /></td>
+				<td><input type="text" name="viName" id="viName" ><br /></td>
 			</tr> 
 			<tr>
 				<td>회사설명</td>
-				<td><input type="text" name="num" id="viDesc" value = <%=request.getParameter("viDesc") %>><br /></td>
+				<td><input type="text" name="viDesc" id="viDesc" ><br /></td>
 			</tr>
 			<tr> 
 				<td>회사주소</td>
-				<td><input type="text" name="num" id="viAddress" value = <%=request.getParameter("viAddress") %>><br /></td>	 		
+				<td><input type="text" name="viAddress" id="viAddress"><br /></td>	 		
 				</tr>
 			<tr> 
 				<td>대표번호</td>
-				<td><input type="text" name="num" id="viPhone" value = <%=request.getParameter("viPhone") %>><br /></td>	 		
+				<td><input type="text" name="viPhone" id="viPhone"><br /></td>	 		
 				</tr> 
 			
 			<tr>
@@ -47,6 +47,7 @@ $("#btnUpdate").click(function(){
 	var params = {};
 	params["command"] = "update"; 
 	params["viName"] = $("#viName").val();
+	params["viNum"] = $("#viNum").val();
 	params["viDesc"] = $("#viDesc").val();
 	params["viAddress"] = $("#viAddress").val(); 
 	params["viPhone"] = $("#viPhone").val();  
@@ -60,36 +61,20 @@ $("#btncancel").click(function(){
 
 $(document).ready(function(){
 	var params = {};
-	params["command"] = "vendorlist"; 
-	movePageWithAjax(params, "/list.vendor", callback);
+	params["command"] = "view";
+	params["viNum"]=<%=request.getParameter("viNum") %>;  
+	movePageWithAjax(params, "/list.vendor", callback2);
 })
 
 function callbackInsert(result){
 	alert(result.msg);
 	location.href = result.url;
 }
-function callback(result){
-	var vendorList = result.vendorList;
-	var selStr = "<option value=''>회사선택</option>";
-	for (var i = 0, max = vendorList.length; i < max; i++) {
-		var vendor = vendorList[i];
-		selStr += "<option value='" + vendor.viNum + "' >" + vendor.viName
-				+ "</option>";
-	}
-	$("#s_vendor").html(selStr);
-
-	var params = {};
-	params["command"] = "view";
-	params["giNum"] = "<%=request.getParameter("giNum")%>";
-	var page = {}
-	page["nowPage"] = "<%=request.getParameter("nowPage")%>";
-	params["page"] = page;
-	movePageWithAjax(params, "/list.vendor", callback2);
-} 
 function callback2(result){
-	$("#giDesc").val(result.goods.giDesc);
-	$("#giName").val(result.goods.giName);
-	$("#s_vendor").val(result.goods.viNum);
+	$("#viName").val(result.vendorList.viName);
+	$("#viDesc").val(result.vendorList.viDesc); 
+	$("#viAddress").val(result.vendorList.viAddress);
+	$("#viPhone").val(result.vendorList.viPhone); 
 }
 </script>
 </body>

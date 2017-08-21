@@ -72,9 +72,8 @@ function callBackView(result){
 	} 
 }
 $("#btnUpdate").click(function(){ 
-	location.href="/vendor/vendor_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&viNum=" + <%=request.getParameter("viNum")%>
-	+ "&viName=" + <%=request.getParameter("viName")%> + "&viDesc=" + <%=request.getParameter("viDesc")%>;  
-	 
+	location.href="/vendor/vendor_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&viNum=" + <%=request.getParameter("viNum")%>;
+	  
 });
 $("#btnGoList").click(function(){
 	location.href="/vendor/vendor_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>
